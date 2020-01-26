@@ -19,6 +19,7 @@ public class TextInputControl : MonoBehaviour
     public Text HeaderTextSs;
 
     public InputField EffectInput;
+    public Button TapButton;
     public Text EffectText;
     public Text EffectTextSs;
 
@@ -35,6 +36,11 @@ public class TextInputControl : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
+        TapButton.onClick.AddListener(() => 
+        {
+            EffectInput.text += "↵";
+        });
+
         TitleInput.onValueChanged.AddListener(delegate { ChangeTitle(); });
         HeaderInput.onValueChanged.AddListener(delegate { ChangeHeader(); });
         EffectInput.onValueChanged.AddListener(delegate { ChangeDescription(); });
