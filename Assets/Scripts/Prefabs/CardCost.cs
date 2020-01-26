@@ -8,7 +8,7 @@ public class CardCost : MonoBehaviour
 {
     public GameObject SingleItemCost;
     public List<GameObject> Items;
-    
+    public float MoveNext = 26.0f;
     void Start()
     {
         
@@ -27,16 +27,22 @@ public class CardCost : MonoBehaviour
             Destroy(item);
         }
         Items = new List<GameObject>();
-        foreach(var item in itemsWithCosts)
+        var prevItemsX = 0.0f;
+        foreach (var item in itemsWithCosts)
         {
-            var spawnAtY = gameObject.transform.position.y;
-            var spawnAtX = gameObject.transform.right.x;
-            var newItem = Instantiate(SingleItemCost, transform.position, transform.rotation);
+            var position = transform.position;
+            position.x = position.x  + prevItemsX;
+
+            var newItem = Instantiate(SingleItemCost, position, transform.rotation);
             var newItemScript = newItem.gameObject.GetComponent<SingleManaItem>();
             newItemScript.Allegiance = item.Allegiance;
+
             newItemScript.Cost = item.Cost;
             newItemScript.Apply();
+
             newItem.transform.SetParent(this.gameObject.transform);
+            Debug.Log(newItem.transform.position.ToString());
+            prevItemsX -= MoveNext;
 
             Items.Add(newItem);
         }

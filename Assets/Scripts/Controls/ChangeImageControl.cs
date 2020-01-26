@@ -11,6 +11,7 @@ using System.Collections;
 using Assets.Scenes.Scripts.Controls;
 using Assets.Scenes.Scripts.Enums;
 using Assets.Scenes.Scripts.Helpers;
+using System.IO;
 
 namespace Assets.Scenes.Scripts
 {
@@ -20,10 +21,9 @@ namespace Assets.Scenes.Scripts
         public Button SsButton;
         public Image Image;
         public Image ImageSs;
-        public Camera ProgramCamera;
-        public Camera SSCamera;
         public Canvas Program;
 
+        private string ScreenshotPath { get { return $"{Application.dataPath}//Screenshots"; } }
         public void Start()
         {
             ImageBtn.onClick.AddListener(AddImage);
@@ -38,18 +38,19 @@ namespace Assets.Scenes.Scripts
             var name = this.gameObject.GetComponent<TextInputControl>();
             var nameStr = name.TitleText.text;
 
-            StartCoroutine(ScreenShotEnum($"{cardType}-{nameStr}"));
+            if (!Directory.Exists(ScreenshotPath))
+                Directory.CreateDirectory(ScreenshotPath);
+            if (!Directory.Exists($"{ScreenshotPath}//{cardType}"))
+                Directory.CreateDirectory($"{ScreenshotPath}//{cardType}");
+
+            StartCoroutine(ScreenShotEnum($"{ ScreenshotPath}//{cardType}//{cardType}-{nameStr}"));
         }
         IEnumerator ScreenShotEnum(string cardName)
         {
-            ProgramCamera.enabled = false;
             Program.enabled = false;
-            SSCamera.enabled = true;
             yield return new WaitForSeconds(1);
             ScreenCapture.CaptureScreenshot($"{cardName}-{DateTime.UtcNow.Ticks}.png");
             yield return new WaitForSeconds(1);
-            ProgramCamera.enabled = true;
-            SSCamera.enabled = false;
             Program.enabled = true;
             Debug.Log("Ss");
         }

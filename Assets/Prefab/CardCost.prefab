@@ -101,3 +101,4 @@ MonoBehaviour:
   SingleItemCost: {fileID: 6329358658507392534, guid: 956acb111f026514589e6928d6ce1c39,
     type: 3}
   Items: []
+  MoveNext: 26

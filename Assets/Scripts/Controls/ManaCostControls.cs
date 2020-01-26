@@ -28,6 +28,7 @@ namespace Assets.Scenes.Scripts
         public InputField Generic2Cost;
 
         public GameObject CardCostPresenter;
+        public GameObject CardCostPresenterSS;
 
         void Start()
         {
@@ -57,7 +58,9 @@ namespace Assets.Scenes.Scripts
                 list.Add(new ItemWithCost { Allegiance = Allegiance.Generic, Cost = Generic2Cost.text });
 
             var cardCostScript = CardCostPresenter.gameObject.GetComponent<CardCost>();
+            var cardCostScriptSs = CardCostPresenterSS.gameObject.GetComponent<CardCost>();
             cardCostScript.AddItemWithCost(list);
+            cardCostScriptSs.AddItemWithCost(list);
 
         }
 

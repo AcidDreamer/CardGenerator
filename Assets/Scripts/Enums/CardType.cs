@@ -8,7 +8,13 @@ namespace Assets.Scenes.Scripts.Enums
 {
     public enum CardType
     {
+        Allegiance,
+        Class,
         Summon,
-        Spell
+        Spell,
+        Field,
+        Aura,
+        Equipment,
+        Flash
     }
 }
